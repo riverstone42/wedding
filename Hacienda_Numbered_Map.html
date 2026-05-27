@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distances from The Hacienda — Numbered Locations (1–52)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  #map { width: 100%; height: 100vh; }
+  .numbered-marker {
+    background: none;
+    border: none;
+  }
+  .marker-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 11px;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: transform 0.15s;
+  }
+  .marker-circle:hover { transform: scale(1.2); }
+  .cat-origin    { background: #000000; width: 32px; height: 32px; font-size: 13px; border: 3px solid #FFD700; }
+  .cat-airport   { background: #1E88E5; }
+  .cat-theme     { background: #E53935; }
+  .cat-zoo       { background: #43A047; }
+  .cat-hollywood { background: #8E24AA; }
+  .cat-beach     { background: #00ACC1; }
+  .cat-sport     { background: #F4511E; }
+  .cat-museum    { background: #6D4C41; }
+  .cat-shopping  { background: #D81B60; }
+  .cat-hiking    { background: #2E7D32; }
+
+  .legend {
+    background: white;
+    padding: 14px 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    font-size: 13px;
+    line-height: 1.4;
+    max-height: 80vh;
+    overflow-y: auto;
+    user-select: none;
+  }
+  .legend-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, opacity 0.2s;
+  }
+  .legend-item:hover {
+    background: #f0f0f0;
+  }
+  .legend-item.disabled {
+    opacity: 0.35;
+  }
+  .legend-item.disabled .legend-dot {
+    background: #bbb !important;
+    border-color: #ccc !important;
+  }
+  .legend-item.disabled .legend-label {
+    text-decoration: line-through;
+    color: #aaa;
+  }
+  .legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    transition: background 0.2s;
+  }
+  .legend-label {
+    flex: 1;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .legend-count {
+    font-size: 11px;
+    color: #888;
+    font-weight: 600;
+  }
+  .legend-hint {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid #e8e8e8;
+    font-weight: 500;
+  }
+  .popup-link {
+    display: inline-block;
+    margin-top: 6px;
+    color: #1565C0;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    word-break: break-all;
+  }
+  .popup-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+const locations = [
+  {n:1,  name:"The Hacienda",              cat:"origin",    dist:"ORIGIN",   lat:33.7610662, lng:-117.8915972, url:"https://the-hacienda.com"},
+  {n:2,  name:"John Wayne Airport",        cat:"airport",   dist:"6.0 mi",   lat:33.674687,  lng:-117.8692422, url:"https://www.ocair.com"},
+  {n:3,  name:"LAX",                       cat:"airport",   dist:"30.4 mi",  lat:33.942153,  lng:-118.4036052, url:"https://www.flylax.com"},
+  {n:4,  name:"Long Beach Airport",        cat:"airport",   dist:"15.3 mi",  lat:33.8161064, lng:-118.1512558, url:"https://www.longbeach.gov/lgb"},
+  {n:5,  name:"Ontario Airport",           cat:"airport",   dist:"23.1 mi",  lat:34.0559976, lng:-117.5980922, url:"https://www.flyontario.com"},
+  {n:6,  name:"Disneyland",                cat:"theme",     dist:"3.6 mi",   lat:33.8111372, lng:-117.9219861, url:"https://disneyland.disney.go.com"},
+  {n:7,  name:"Knott's Berry Farm",        cat:"theme",     dist:"8.6 mi",   lat:33.8443038, lng:-118.0002265, url:"https://www.sixflags.com/knotts"},
+  {n:8,  name:"Universal Studios",         cat:"theme",     dist:"32.8 mi",  lat:34.1370713, lng:-118.3533061, url:"https://www.universalstudioshollywood.com"},
+  {n:9,  name:"Pirates Dinner Adventure",  cat:"theme",     dist:"10.5 mi",  lat:33.8535519, lng:-117.9972968, url:"https://piratesdinneradventure.com/ca"},
+  {n:10, name:"Medieval Times",            cat:"theme",     dist:"10.5 mi",  lat:33.8511795, lng:-117.997326,  url:"https://www.medievaltimes.com/buena-park"},
+  {n:11, name:"The Queen Mary",            cat:"theme",     dist:"22.0 mi",  lat:33.7526356, lng:-118.1903235, url:"https://www.queenmary.com"},
+  {n:12, name:"LEGOLAND",                  cat:"theme",     dist:"49.3 mi",  lat:33.1262316, lng:-117.310507,  url:"https://www.legoland.com/california/"},
+  {n:13, name:"LA Zoo",                    cat:"zoo",       dist:"32.2 mi",  lat:34.1482153, lng:-118.2882601, url:"https://lazoo.org"},
+  {n:14, name:"Aquarium of the Pacific",   cat:"zoo",       dist:"22.5 mi",  lat:33.7619735, lng:-118.1969738, url:"https://www.aquariumofpacific.org"},
+  {n:15, name:"Safari Park",               cat:"zoo",       dist:"59.4 mi",  lat:33.0997931, lng:-116.9922942, url:"https://sdzsafaripark.org"},
+  {n:16, name:"Hollywood Walk of Fame",    cat:"hollywood", dist:"31.0 mi",  lat:34.1020231, lng:-118.3409712, url:"https://walkoffame.com"},
+  {n:17, name:"Hollywood Sign",            cat:"hollywood", dist:"31.9 mi",  lat:34.1269448, lng:-118.3261053, url:"https://www.hollywoodsign.org"},
+  {n:18, name:"Griffith Observatory",      cat:"hollywood", dist:"30.5 mi",  lat:34.1184341, lng:-118.3003935, url:"https://griffithobservatory.lacity.gov"},
+  {n:19, name:"Santa Monica Pier",         cat:"beach",     dist:"36.5 mi",  lat:34.0082821, lng:-118.4987585, url:"https://www.santamonicapier.org"},
+  {n:20, name:"Huntington Beach",          cat:"beach",     dist:"9.5 mi",   lat:33.6550706, lng:-118.0042037, url:"https://www.surfcityusa.com"},
+  {n:21, name:"Venice Beach",              cat:"beach",     dist:"34.8 mi",  lat:33.9801198, lng:-118.4677473, url:"https://recreation.parks.lacity.gov/venice/"},
+  {n:22, name:"Crystal Cove",              cat:"beach",     dist:"13.1 mi",  lat:33.5800786, lng:-117.8050864, url:"https://www.crystalcovestatepark.org"},
+  {n:23, name:"El Matador Beach",          cat:"beach",     dist:"58.6 mi",  lat:34.0380426, lng:-118.874663,  url:"https://www.californiabeaches.com/beach/el-matador-state-beach/"},
+  {n:24, name:"Angel Stadium",             cat:"sport",     dist:"2.7 mi",   lat:33.7998135, lng:-117.8824162, url:"https://www.mlb.com/angels/ballpark"},
+  {n:25, name:"Dodger Stadium",            cat:"sport",     dist:"25.6 mi",  lat:34.073851,  lng:-118.2399583, url:"https://www.mlb.com/dodgers/ballpark"},
+  {n:26, name:"SoFi Stadium",              cat:"sport",     dist:"28.3 mi",  lat:33.9534765, lng:-118.3390235, url:"https://www.sofistadium.com"},
+  {n:27, name:"Crypto.com Arena",          cat:"sport",     dist:"25.1 mi",  lat:34.0430175, lng:-118.2672541, url:"https://www.cryptoarena.com"},
+  {n:28, name:"Intuit Dome",               cat:"sport",     dist:"28.3 mi",  lat:33.9437983, lng:-118.3421771, url:"https://intuitdome.com"},
+  {n:29, name:"Honda Center",              cat:"sport",     dist:"3.3 mi",   lat:33.8078476, lng:-117.8764687, url:"https://www.hondacenter.com"},
+  {n:30, name:"LA Coliseum",               cat:"sport",     dist:"24.8 mi",  lat:34.0136647, lng:-118.2878355, url:"https://www.lacoliseum.com"},
+  {n:31, name:"Rose Bowl",                 cat:"sport",     dist:"31.0 mi",  lat:34.1613332, lng:-118.1676304, url:"https://www.rosebowlstadium.com"},
+  {n:32, name:"Discovery Cube",            cat:"museum",    dist:"2.0 mi",   lat:33.7702538, lng:-117.8678641, url:"https://www.discoverycube.org/orange-county/visit/"},
+  {n:33, name:"Getty Center",              cat:"museum",    dist:"36.8 mi",  lat:34.0773438, lng:-118.4732648, url:"https://www.getty.edu/visit/center/"},
+  {n:34, name:"Getty Villa",               cat:"museum",    dist:"42.0 mi",  lat:34.0458857, lng:-118.5648608, url:"https://www.getty.edu/visit/villa/"},
+  {n:35, name:"La Brea Tar Pits",          cat:"museum",    dist:"29.8 mi",  lat:34.06388,   lng:-118.356445,  url:"https://tarpits.org"},
+  {n:36, name:"Natural History Museum",    cat:"museum",    dist:"24.9 mi",  lat:34.0171448, lng:-118.2886635, url:"https://nhm.org"},
+  {n:37, name:"LACMA",                     cat:"museum",    dist:"30.0 mi",  lat:34.0639323, lng:-118.3592293, url:"https://www.lacma.org"},
+  {n:38, name:"CA Science Center",         cat:"museum",    dist:"24.7 mi",  lat:34.0158186, lng:-118.286109,  url:"https://californiasciencecenter.org"},
+  {n:39, name:"The Broad",                 cat:"museum",    dist:"24.5 mi",  lat:34.0545021, lng:-118.2501802, url:"https://www.thebroad.org"},
+  {n:40, name:"Petersen Auto Museum",      cat:"museum",    dist:"30.0 mi",  lat:34.062024,  lng:-118.3613631, url:"https://www.petersen.org"},
+  {n:41, name:"Huntington Library",        cat:"museum",    dist:"27.5 mi",  lat:34.1290452, lng:-118.1145242, url:"https://www.huntington.org"},
+  {n:42, name:"Academy Museum",            cat:"museum",    dist:"30.0 mi",  lat:34.0634806, lng:-118.3608394, url:"https://www.academymuseum.org"},
+  {n:43, name:"Rodeo Drive",               cat:"shopping",  dist:"32.3 mi",  lat:34.0703141, lng:-118.4041293, url:"https://www.rodeodrive-bh.com"},
+  {n:44, name:"Westfield Century City",    cat:"shopping",  dist:"33.0 mi",  lat:34.0586592, lng:-118.4190309, url:"https://www.westfield.com/en/united-states/centurycity"},
+  {n:45, name:"The Grove",                 cat:"shopping",  dist:"30.0 mi",  lat:34.0719407, lng:-118.3575164, url:"https://thegrovela.com"},
+  {n:46, name:"Melrose Ave Shopping",      cat:"shopping",  dist:"31.0 mi",  lat:34.0836328, lng:-118.3660639, url:"https://melroseavenue-shop.com"},
+  {n:47, name:"LA Fashion District",       cat:"shopping",  dist:"24.3 mi",  lat:34.0352439, lng:-118.2522071, url:"https://fashiondistrict.org"},
+  {n:48, name:"South Coast Plaza",         cat:"shopping",  dist:"4.8 mi",   lat:33.691003,  lng:-117.8889767, url:"https://www.southcoastplaza.com"},
+  {n:49, name:"Fashion Island",            cat:"shopping",  dist:"10.0 mi",  lat:33.616565,  lng:-117.8759217, url:"https://www.fashionisland.com"},
+  {n:50, name:"Irvine Spectrum",           cat:"shopping",  dist:"11.7 mi",  lat:33.6498666, lng:-117.7441907, url:"https://www.irvinespectrumcenter.com"},
+  {n:51, name:"Mt Baldy Trailhead",        cat:"hiking",    dist:"38.1 mi",  lat:34.2681247, lng:-117.6295092, url:"https://www.alltrails.com/us/california/mount-baldy"},
+  {n:52, name:"Mt San Gorgonio",           cat:"hiking",    dist:"63.1 mi",  lat:34.124475,  lng:-116.9153184, url:"https://www.alltrails.com/trail/us/california/vivian-creek-trail-to-san-gorgonio-peak"}
+];
+
+const categories = [
+  {id:"origin",    label:"Origin",                   color:"#000000", border:"#FFD700", nums:"1"},
+  {id:"airport",   label:"Airports",                 color:"#1E88E5", border:"#fff",    nums:"2–5"},
+  {id:"theme",     label:"Theme Parks & Attractions",color:"#E53935", border:"#fff",    nums:"6–12"},
+  {id:"zoo",       label:"Zoos & Aquariums",         color:"#43A047", border:"#fff",    nums:"13–15"},
+  {id:"hollywood", label:"Hollywood",                color:"#8E24AA", border:"#fff",    nums:"16–18"},
+  {id:"beach",     label:"Beaches",                  color:"#00ACC1", border:"#fff",    nums:"19–23"},
+  {id:"sport",     label:"Sports Venues",            color:"#F4511E", border:"#fff",    nums:"24–31"},
+  {id:"museum",    label:"Museums",                  color:"#6D4C41", border:"#fff",    nums:"32–42"},
+  {id:"shopping",  label:"Shopping",                 color:"#D81B60", border:"#fff",    nums:"43–50"},
+  {id:"hiking",    label:"Hiking",                   color:"#2E7D32", border:"#fff",    nums:"51–52"}
+];
+
+const catClass = {
+  origin:"cat-origin", airport:"cat-airport", theme:"cat-theme", zoo:"cat-zoo",
+  hollywood:"cat-hollywood", beach:"cat-beach", sport:"cat-sport",
+  museum:"cat-museum", shopping:"cat-shopping", hiking:"cat-hiking"
+};
+
+const map = L.map('map').setView([33.85, -117.95], 9);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Group markers by category
+const layerGroups = {};
+categories.forEach(c => { layerGroups[c.id] = L.layerGroup().addTo(map); });
+
+locations.forEach(loc => {
+  const isOrigin = loc.cat === 'origin';
+  const size = isOrigin ? 32 : 28;
+  const icon = L.divIcon({
+    className: 'numbered-marker',
+    html: `<div class="marker-circle ${catClass[loc.cat]}">${loc.n}</div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2],
+    popupAnchor: [0, -size/2 - 2]
+  });
+
+  const marker = L.marker([loc.lat, loc.lng], { icon })
+    .bindPopup(
+      `<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-width:200px;max-width:260px;">` +
+      `<div style="font-weight:700;font-size:14px;margin-bottom:4px;">${loc.n}. ${loc.name}</div>` +
+      `<div style="color:#555;font-size:13px;">${isOrigin ? 'Wedding Venue — ORIGIN' : loc.dist + ' from The Hacienda'}</div>` +
+      (loc.url ? `<a class="popup-link" href="${loc.url}" target="_blank" rel="noopener noreferrer">${loc.url.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'')}</a>` : '') +
+      `</div>`
+    );
+  layerGroups[loc.cat].addLayer(marker);
+});
+
+// Track visibility state
+const catVisible = {};
+categories.forEach(c => { catVisible[c.id] = true; });
+
+// Clickable Legend
+const legend = L.control({ position: 'bottomright' });
+legend.onAdd = function() {
+  const div = L.DomUtil.create('div', 'legend');
+
+  let html = `<div class="legend-title">Distances from The Hacienda</div>`;
+
+  categories.forEach(c => {
+    const count = locations.filter(l => l.cat === c.id).length;
+    html += `
+      <div class="legend-item" data-cat="${c.id}" title="Click to show/hide ${c.label}">
+        <div class="legend-dot" data-color="${c.color}" style="background:${c.color};border-color:${c.border}"></div>
+        <span class="legend-label">${c.label}</span>
+        <span class="legend-count">${c.nums} (${count})</span>
+      </div>`;
+  });
+
+  html += `<div class="legend-hint">Click a category to show / hide</div>`;
+  div.innerHTML = html;
+
+  // Prevent map interaction through legend
+  L.DomEvent.disableClickPropagation(div);
+  L.DomEvent.disableScrollPropagation(div);
+
+  // Click handlers for toggling
+  div.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('click', function() {
+      const cat = this.dataset.cat;
+      catVisible[cat] = !catVisible[cat];
+
+      if (catVisible[cat]) {
+        map.addLayer(layerGroups[cat]);
+        this.classList.remove('disabled');
+      } else {
+        map.removeLayer(layerGroups[cat]);
+        this.classList.add('disabled');
+      }
+    });
+  });
+
+  return div;
+};
+legend.addTo(map);
+</script>
+</body>
+</html>

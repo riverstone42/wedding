@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Points of Interest</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #faf7f2;
+    color: #3d3527;
+    line-height: 1.55;
+    padding: 0;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-left: 1px solid #ece6d9;
+    border-right: 1px solid #ece6d9;
+    min-height: 100vh;
+  }
+  header {
+    background: #f7f3ec;
+    padding: 48px 40px 36px;
+    text-align: center;
+    border-bottom: 1px solid #ece6d9;
+  }
+  header .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #8a7d62;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 40px;
+    color: #3d3527;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  header .meta {
+    font-size: 13px;
+    color: #8a7d62;
+    letter-spacing: 1px;
+  }
+  main { padding: 32px 40px 48px; }
+  main > p.intro {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4a4233;
+    margin-bottom: 8px;
+  }
+  h2.category {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 22px;
+    color: #3d3527;
+    margin-top: 40px;
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid #8a7d62;
+  }
+  .poi {
+    padding: 18px 0;
+    border-bottom: 1px solid #ece6d9;
+  }
+  .poi:last-child { border-bottom: none; }
+  .poi-head {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 18px;
+    color: #3d3527;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .poi-head .num {
+    color: #3d3527;
+    font-weight: 700;
+    margin-right: 2px;
+  }
+  .poi-head .name { font-weight: 500; }
+  .poi-head .dist {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    color: #8a7d62;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+  .addr {
+    font-size: 13px;
+    color: #6b6253;
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+  .desc {
+    font-size: 14.5px;
+    color: #3d3527;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .links { font-size: 14px; }
+  .links a {
+    color: #1565C0;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 2px 0;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .links a:hover { border-bottom-color: #1565C0; }
+  .links .sep {
+    color: #b5a988;
+    margin: 0 8px;
+  }
+  footer {
+    background: #f7f3ec;
+    padding: 20px 40px;
+    text-align: center;
+    font-size: 11px;
+    color: #8a7d62;
+    letter-spacing: 2px;
+    border-top: 1px solid #ece6d9;
+  }
+  @media (max-width: 600px) {
+    header { padding: 36px 24px 28px; }
+    header h1 { font-size: 30px; }
+    main { padding: 24px 24px 36px; }
+    h2.category { font-size: 20px; margin-top: 32px; }
+    .poi-head { font-size: 17px; }
+    .poi-head .dist { display: block; margin-left: 0; margin-top: 2px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="eyebrow">Rachel &amp; Gio</div>
+      <h1>Points of Interest</h1>
+      <div class="meta">Friday, October 23, 2026 &nbsp;·&nbsp; Santa Ana, California</div>
+    </header>
+    <main>
+      <p class="intro">Welcome to Southern California! Our venue, The Hacienda, sits in the heart of Orange County with easy access to beaches, theme parks, museums, sports venues, and more. Below are 52 destinations grouped by category — each with the distance from the venue, a short description, and a direct link to Google Maps where you'll find photos, hours, reviews, and one-tap directions.</p>
+
+  <h2 class="category">Rachel &amp; Gio Wedding Venue</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">1.</span> <span class="name">The Hacienda</span></div>
+    <div class="addr">1725 College Ave, Santa Ana, CA 92706</div>
+    <div class="desc">Our wedding venue — a historic Spanish-style estate in the heart of Santa Ana.</div>
+    <div class="links">
+      <a href="https://the-hacienda.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=The%20Hacienda%201725%20College%20Ave%2C%20Santa%20Ana%2C%20CA%2092706&amp;query_place_id=ChIJs3bIP0bY3IARAU5WpMcGRcE" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Airports</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">2.</span> <span class="name">John Wayne Airport (SNA)</span> <span class="dist">· 6 mi from venue</span></div>
+    <div class="addr">18601 Airport Way, Santa Ana, CA 92707</div>
+    <div class="desc">Closest airport to the venue. Smaller, easier, and faster than LAX for most guests.</div>
+    <div class="links">
+      <a href="https://ocair.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=John%20Wayne%20Airport%20(SNA)%2018601%20Airport%20Way%2C%20Santa%20Ana%2C%20CA%2092707&amp;query_place_id=ChIJ70Cry-3e3IAR4hkRw_XoQck" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">3.</span> <span class="name">Los Angeles International (LAX)</span> <span class="dist">· 30 mi from venue</span></div>
+    <div class="addr">1 World Way, Los Angeles, CA 90045</div>
+    <div class="desc">Major international hub with the widest flight selection. Allow extra time for traffic.</div>
+    <div class="links">
+      <a href="https://flylax.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Los%20Angeles%20International%20(LAX)%201%20World%20Way%2C%20Los%20Angeles%2C%20CA%2090045&amp;query_place_id=ChIJtU-yE9KwwoAR8a2LaVd7qHc" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">4.</span> <span class="name">Long Beach Airport (LGB)</span> <span class="dist">· 15 mi from venue</span></div>
+    <div class="addr">4100 Donald Douglas Dr, Long Beach, CA 90808</div>
+    <div class="desc">Small and easy domestic airport — a great alternative if your itinerary allows.</div>
+    <div class="links">
+      <a href="https://longbeach.gov/lgb" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Long%20Beach%20Airport%20(LGB)%204100%20Donald%20Douglas%20Dr%2C%20Long%20Beach%2C%20CA%2090808&amp;query_place_id=ChIJhQxDwTYy3YAR_ydWCFAr1wM" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">5.</span> <span class="name">Ontario International (ONT)</span> <span class="dist">· 23 mi from venue</span></div>
+    <div class="addr">Ontario, CA 91761</div>
+    <div class="desc">Inland Empire airport — convenient if you&#39;re staying east of LA.</div>
+    <div class="links">
+      <a href="https://flyontario.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Ontario%20International%20(ONT)%20Ontario%2C%20CA%2091761&amp;query_place_id=ChIJp9TPWvw0w4ARO1JZyBbtxJ8" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Theme Parks &amp; Attractions</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">6.</span> <span class="name">Disneyland Resort</span> <span class="dist">· 4 mi from venue</span></div>
+    <div class="addr">1313 Disneyland Dr, Anaheim, CA 92802</div>
+    <div class="desc">The original Disney park, right next door to the venue. Buy tickets online in advance.</div>
+    <div class="links">
+      <a href="https://disneyland.disney.go.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Disneyland%20Resort%201313%20Disneyland%20Dr%2C%20Anaheim%2C%20CA%2092802&amp;query_place_id=ChIJg3XXhNrX3IARUc0M9bIC_X4" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">7.</span> <span class="name">Knott&#39;s Berry Farm</span> <span class="dist">· 9 mi from venue</span></div>
+    <div class="addr">8039 Beach Blvd, Buena Park, CA 90620</div>
+    <div class="desc">Classic California theme park with great roller coasters and a charming old-west feel.</div>
+    <div class="links">
+      <a href="https://sixflags.com/knotts" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Knott&#39;s%20Berry%20Farm%208039%20Beach%20Blvd%2C%20Buena%20Park%2C%20CA%2090620&amp;query_place_id=ChIJo3h_9V8p3YARVTAekE45jq4" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">8.</span> <span class="name">Universal Studios Hollywood</span> <span class="dist">· 33 mi from venue</span></div>
+    <div class="addr">100 Universal City Plaza, Universal City, CA 91608</div>
+    <div class="desc">Movie-themed rides plus the famous Studio Tour through working backlots.</div>
+    <div class="links">
+      <a href="https://universalstudioshollywood.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Universal%20Studios%20Hollywood%20100%20Universal%20City%20Plaza%2C%20Universal%20City%2C%20CA%2091608&amp;query_place_id=ChIJzzgyJU--woARcZqceSdQ3dM" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">9.</span> <span class="name">Pirates Dinner Adventure</span> <span class="dist">· 10 mi from venue</span></div>
+    <div class="addr">7600 Beach Blvd, Buena Park, CA 90620</div>
+    <div class="desc">Swashbuckling dinner show with stunt acrobatics aboard a full-size pirate ship.</div>
+    <div class="links">
+      <a href="https://piratesdinneradventure.com/ca" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Pirates%20Dinner%20Adventure%207600%20Beach%20Blvd%2C%20Buena%20Park%2C%20CA%2090620&amp;query_place_id=ChIJEwf2Wegr3YARKhj56ET-ltA" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">10.</span> <span class="name">Medieval Times Dinner &amp; Tournament</span> <span class="dist">· 10 mi from venue</span></div>
+    <div class="addr">7662 Beach Blvd, Buena Park, CA 90620</div>
+    <div class="desc">Knights, jousting, and a four-course feast eaten with your hands.</div>
+    <div class="links">
+      <a href="https://medievaltimes.com/buena-park" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Medieval%20Times%20Dinner%20%26%20Tournament%207662%20Beach%20Blvd%2C%20Buena%20Park%2C%20CA%2090620&amp;query_place_id=ChIJGUKPfOgr3YARQnmZPN5jzKQ" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">11.</span> <span class="name">The Queen Mary</span> <span class="dist">· 22 mi from venue</span></div>
+    <div class="addr">1126 Queens Hwy, Long Beach, CA 90802</div>
+    <div class="desc">Historic ocean liner permanently docked in Long Beach — tour the ship or stay overnight.</div>
+    <div class="links">
+      <a href="https://queenmary.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=The%20Queen%20Mary%201126%20Queens%20Hwy%2C%20Long%20Beach%2C%20CA%2090802&amp;query_place_id=ChIJlWtAnNgw3YARNP74lzYz21U" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">12.</span> <span class="name">LEGOLAND California</span> <span class="dist">· 49 mi from venue</span></div>
+    <div class="addr">One Legoland Dr, Carlsbad, CA 92008</div>
+    <div class="desc">Family theme park geared toward kids 2–12, with rides, shows, and a water park.</div>
+    <div class="links">
+      <a href="https://legoland.com/california" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=LEGOLAND%20California%20One%20Legoland%20Dr%2C%20Carlsbad%2C%20CA%2092008&amp;query_place_id=ChIJ8xsjntZz3IAR2PcwE3R1vB4" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Zoos &amp; Aquariums</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">13.</span> <span class="name">Los Angeles Zoo</span> <span class="dist">· 32 mi from venue</span></div>
+    <div class="addr">5333 Zoo Dr, Los Angeles, CA 90027</div>
+    <div class="desc">Set in Griffith Park, with over 1,400 animals and beautiful botanical gardens.</div>
+    <div class="links">
+      <a href="https://lazoo.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Los%20Angeles%20Zoo%205333%20Zoo%20Dr%2C%20Los%20Angeles%2C%20CA%2090027&amp;query_place_id=ChIJ1cdRl2XAwoAR_WUoKRXLQTY" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">14.</span> <span class="name">Aquarium of the Pacific</span> <span class="dist">· 23 mi from venue</span></div>
+    <div class="addr">100 Aquarium Way, Long Beach, CA 90802</div>
+    <div class="desc">One of the largest aquariums in the country, with sea otters, sharks, and a touch pool.</div>
+    <div class="links">
+      <a href="https://aquariumofpacific.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Aquarium%20of%20the%20Pacific%20100%20Aquarium%20Way%2C%20Long%20Beach%2C%20CA%2090802&amp;query_place_id=ChIJtXzMMjAx3YARll7hgkff2pY" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">15.</span> <span class="name">San Diego Zoo Safari Park</span> <span class="dist">· 59 mi from venue</span></div>
+    <div class="addr">15500 San Pasqual Valley Rd, Escondido, CA 92027</div>
+    <div class="desc">Open-range safari experience — observe animals from trams and gondolas across 1,800 acres.</div>
+    <div class="links">
+      <a href="https://sdzsafaripark.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=San%20Diego%20Zoo%20Safari%20Park%2015500%20San%20Pasqual%20Valley%20Rd%2C%20Escondido%2C%20CA%2092027&amp;query_place_id=ChIJ-6-oXwXy24AR6C1du6y1FtI" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Hollywood</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">16.</span> <span class="name">Hollywood Walk of Fame</span> <span class="dist">· 31 mi from venue</span></div>
+    <div class="addr">6925 Hollywood Blvd, Hollywood, CA 90028</div>
+    <div class="desc">Bronze stars line Hollywood Blvd. Pair with the TCL Chinese Theatre handprints nearby.</div>
+    <div class="links">
+      <a href="https://walkoffame.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Hollywood%20Walk%20of%20Fame%206925%20Hollywood%20Blvd%2C%20Hollywood%2C%20CA%2090028&amp;query_place_id=ChIJw4DCAdrX3IAR-1_GYNuCOfc" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">17.</span> <span class="name">Hollywood Sign (Lake Hollywood Park)</span> <span class="dist">· 32 mi from venue</span></div>
+    <div class="addr">3160 Canyon Lake Dr, Los Angeles, CA 90068</div>
+    <div class="desc">Best easy-access spot to photograph the iconic Hollywood Sign.</div>
+    <div class="links">
+      <a href="https://hollywoodsign.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Hollywood%20Sign%20(Lake%20Hollywood%20Park)%203160%20Canyon%20Lake%20Dr%2C%20Los%20Angeles%2C%20CA%2090068&amp;query_place_id=ChIJIWe65uK_woARj5O0F9JFBJw" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">18.</span> <span class="name">Griffith Observatory</span> <span class="dist">· 31 mi from venue</span></div>
+    <div class="addr">2800 E Observatory Rd, Los Angeles, CA 90027</div>
+    <div class="desc">Free admission, telescopes, and the best skyline-and-Hollywood-sign view in LA.</div>
+    <div class="links">
+      <a href="https://griffithobservatory.lacity.gov" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Griffith%20Observatory%202800%20E%20Observatory%20Rd%2C%20Los%20Angeles%2C%20CA%2090027&amp;query_place_id=ChIJywjU6WG_woAR3NrWwrEH_3M" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Beaches</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">19.</span> <span class="name">Santa Monica Pier</span> <span class="dist">· 37 mi from venue</span></div>
+    <div class="addr">200 Santa Monica Pier, Santa Monica, CA 90401</div>
+    <div class="desc">Iconic pier with an amusement park, Ferris wheel, and the end of historic Route 66.</div>
+    <div class="links">
+      <a href="https://santamonicapier.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Santa%20Monica%20Pier%20200%20Santa%20Monica%20Pier%2C%20Santa%20Monica%2C%20CA%2090401&amp;query_place_id=ChIJdShDN_fAwoARlRtwHmyGais" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">20.</span> <span class="name">Huntington Beach Pier</span> <span class="dist">· 10 mi from venue</span></div>
+    <div class="addr">Main St &amp; Pacific Coast Hwy, Huntington Beach, CA 92648</div>
+    <div class="desc">&quot;Surf City USA&quot; — wide sandy beach with a long pier, perfect for sunset walks.</div>
+    <div class="links">
+      <a href="https://surfcityusa.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Huntington%20Beach%20Pier%20Main%20St%20%26%20Pacific%20Coast%20Hwy%2C%20Huntington%20Beach%2C%20CA%2092648&amp;query_place_id=ChIJ0X8xD2oh3YARMx6KrbyKLKQ" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">21.</span> <span class="name">Venice Beach Boardwalk</span> <span class="dist">· 35 mi from venue</span></div>
+    <div class="addr">1800 Ocean Front Walk, Venice, CA 90291</div>
+    <div class="desc">Eclectic boardwalk with street performers, Muscle Beach, and the famous skate park.</div>
+    <div class="links">
+      <a href="https://recreation.parks.lacity.gov/venice" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Venice%20Beach%20Boardwalk%201800%20Ocean%20Front%20Walk%2C%20Venice%2C%20CA%2090291&amp;query_place_id=ChIJsyUr_9y7woARG6pTv7ogvu0" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">22.</span> <span class="name">Crystal Cove State Park</span> <span class="dist">· 13 mi from venue</span></div>
+    <div class="addr">8471 N Coast Hwy, Laguna Beach, CA 92651</div>
+    <div class="desc">Scenic coastline with tide pools, hiking trails, and the historic Crystal Cove cottages.</div>
+    <div class="links">
+      <a href="https://crystalcovestatepark.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Crystal%20Cove%20State%20Park%208471%20N%20Coast%20Hwy%2C%20Laguna%20Beach%2C%20CA%2092651&amp;query_place_id=ChIJgweg3rrm3IARnW8r6EqFlKc" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">23.</span> <span class="name">El Matador State Beach</span> <span class="dist">· 59 mi from venue</span></div>
+    <div class="addr">32350 Pacific Coast Hwy, Malibu, CA 90265</div>
+    <div class="desc">Dramatic sea caves and rock formations — one of the most photographed beaches in Malibu.</div>
+    <div class="links">
+      <a href="https://californiabeaches.com/beach/el-matador-state-beach" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=El%20Matador%20State%20Beach%2032350%20Pacific%20Coast%20Hwy%2C%20Malibu%2C%20CA%2090265&amp;query_place_id=ChIJgR6jrls96IARK5jsg2fUeiQ" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Sports Venues</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">24.</span> <span class="name">Angel Stadium</span> <span class="dist">· 3 mi from venue</span></div>
+    <div class="addr">2000 E Gene Autry Way, Anaheim, CA 92806</div>
+    <div class="desc">Home of the LA Angels — closest major sports venue to The Hacienda.</div>
+    <div class="links">
+      <a href="https://mlb.com/angels/ballpark" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Angel%20Stadium%202000%20E%20Gene%20Autry%20Way%2C%20Anaheim%2C%20CA%2092806&amp;query_place_id=ChIJHbA-iJzX3IARembDUOvijy0" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">25.</span> <span class="name">Dodger Stadium</span> <span class="dist">· 26 mi from venue</span></div>
+    <div class="addr">1000 Vin Scully Ave, Los Angeles, CA 90012</div>
+    <div class="desc">Iconic ballpark and home of the LA Dodgers, with views of downtown and the hills.</div>
+    <div class="links">
+      <a href="https://mlb.com/dodgers/ballpark" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Dodger%20Stadium%201000%20Vin%20Scully%20Ave%2C%20Los%20Angeles%2C%20CA%2090012&amp;query_place_id=ChIJBZSIS_fGwoARuIcV6sH4UEU" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">26.</span> <span class="name">SoFi Stadium</span> <span class="dist">· 28 mi from venue</span></div>
+    <div class="addr">1001 Stadium Dr, Inglewood, CA 90301</div>
+    <div class="desc">Futuristic indoor-outdoor stadium — home of the LA Rams and LA Chargers.</div>
+    <div class="links">
+      <a href="https://sofistadium.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=SoFi%20Stadium%201001%20Stadium%20Dr%2C%20Inglewood%2C%20CA%2090301&amp;query_place_id=ChIJT4_7y4a3woARcEGeJLecuV8" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">27.</span> <span class="name">Crypto.com Arena</span> <span class="dist">· 25 mi from venue</span></div>
+    <div class="addr">1111 S Figueroa St, Los Angeles, CA 90015</div>
+    <div class="desc">Downtown LA arena — home of the Lakers, Kings, and Sparks.</div>
+    <div class="links">
+      <a href="https://cryptoarena.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Crypto.com%20Arena%201111%20S%20Figueroa%20St%2C%20Los%20Angeles%2C%20CA%2090015&amp;query_place_id=ChIJkyrqXbjHwoAR1bJ76zx89B8" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">28.</span> <span class="name">Intuit Dome</span> <span class="dist">· 28 mi from venue</span></div>
+    <div class="addr">3930 W Century Blvd, Inglewood, CA 90303</div>
+    <div class="desc">Brand-new arena built for the LA Clippers, with cutting-edge tech and a huge halo board.</div>
+    <div class="links">
+      <a href="https://intuitdome.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Intuit%20Dome%203930%20W%20Century%20Blvd%2C%20Inglewood%2C%20CA%2090303&amp;query_place_id=ChIJ24QXI963woARVyI650iw2oc" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">29.</span> <span class="name">Honda Center</span> <span class="dist">· 3 mi from venue</span></div>
+    <div class="addr">2695 E Katella Ave, Anaheim, CA 92806</div>
+    <div class="desc">Home of the Anaheim Ducks NHL team, just minutes from the venue.</div>
+    <div class="links">
+      <a href="https://hondacenter.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Honda%20Center%202695%20E%20Katella%20Ave%2C%20Anaheim%2C%20CA%2092806&amp;query_place_id=ChIJXyczhHXX3IARFVUqyhMqiqg" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">30.</span> <span class="name">LA Memorial Coliseum</span> <span class="dist">· 25 mi from venue</span></div>
+    <div class="addr">3911 S Figueroa St, Los Angeles, CA 90037</div>
+    <div class="desc">Historic stadium that hosted two Olympics and is home to USC Trojans football.</div>
+    <div class="links">
+      <a href="https://lacoliseum.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=LA%20Memorial%20Coliseum%203911%20S%20Figueroa%20St%2C%20Los%20Angeles%2C%20CA%2090037&amp;query_place_id=ChIJ-2dO1wfIwoARNj2U1XAKz1Q" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">31.</span> <span class="name">Rose Bowl Stadium</span> <span class="dist">· 31 mi from venue</span></div>
+    <div class="addr">1001 Rose Bowl Dr, Pasadena, CA 91103</div>
+    <div class="desc">Legendary Pasadena stadium — home of UCLA football and the annual Rose Bowl Game.</div>
+    <div class="links">
+      <a href="https://rosebowlstadium.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Rose%20Bowl%20Stadium%201001%20Rose%20Bowl%20Dr%2C%20Pasadena%2C%20CA%2091103&amp;query_place_id=ChIJkRS5KKTDwoARL78qHMf9T0w" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Museums</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">32.</span> <span class="name">Discovery Cube</span> <span class="dist">· 2 mi from venue</span></div>
+    <div class="addr">2500 N Main St, Santa Ana, CA 92705</div>
+    <div class="desc">Hands-on science museum, great for kids — the closest attraction to The Hacienda.</div>
+    <div class="links">
+      <a href="https://discoverycube.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Discovery%20Cube%202500%20N%20Main%20St%2C%20Santa%20Ana%2C%20CA%2092705&amp;query_place_id=ChIJXzC2OsjZ3IAR_H-q2B1k3fI" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">33.</span> <span class="name">The Getty Center</span> <span class="dist">· 37 mi from venue</span></div>
+    <div class="addr">1200 Getty Center Dr, Los Angeles, CA 90049</div>
+    <div class="desc">World-class art museum on a hilltop with stunning architecture, gardens, and city views. Free admission.</div>
+    <div class="links">
+      <a href="https://getty.edu/visit/center" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=The%20Getty%20Center%201200%20Getty%20Center%20Dr%2C%20Los%20Angeles%2C%20CA%2090049&amp;query_place_id=ChIJbzYnQte8woARJaqqFVpKeNo" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">34.</span> <span class="name">The Getty Villa</span> <span class="dist">· 42 mi from venue</span></div>
+    <div class="addr">17985 Pacific Coast Hwy, Pacific Palisades, CA 90272</div>
+    <div class="desc">Recreated Roman villa overlooking the Pacific — Greek, Roman, and Etruscan antiquities. Free admission.</div>
+    <div class="links">
+      <a href="https://getty.edu/visit/villa" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=The%20Getty%20Villa%2017985%20Pacific%20Coast%20Hwy%2C%20Pacific%20Palisades%2C%20CA%2090272&amp;query_place_id=ChIJBw1wGumjwoARsKRsr2WJ-eQ" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">35.</span> <span class="name">La Brea Tar Pits &amp; Museum</span> <span class="dist">· 30 mi from venue</span></div>
+    <div class="addr">5801 Wilshire Blvd, Los Angeles, CA 90036</div>
+    <div class="desc">Active fossil dig in the middle of LA — see Ice Age mammoths and saber-toothed cats.</div>
+    <div class="links">
+      <a href="https://tarpits.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=La%20Brea%20Tar%20Pits%20%26%20Museum%205801%20Wilshire%20Blvd%2C%20Los%20Angeles%2C%20CA%2090036&amp;query_place_id=ChIJ_yD1_SK5woARmWLyCit3znQ" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">36.</span> <span class="name">Natural History Museum of LA County</span> <span class="dist">· 25 mi from venue</span></div>
+    <div class="addr">900 Exposition Blvd, Los Angeles, CA 90007</div>
+    <div class="desc">Dinosaur halls, gem displays, and a stunning butterfly pavilion in Exposition Park.</div>
+    <div class="links">
+      <a href="https://nhm.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Natural%20History%20Museum%20of%20LA%20County%20900%20Exposition%20Blvd%2C%20Los%20Angeles%2C%20CA%2090007&amp;query_place_id=ChIJXzARBf3HwoARJyT7uZSV-G4" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">37.</span> <span class="name">Los Angeles County Museum of Art (LACMA)</span> <span class="dist">· 30 mi from venue</span></div>
+    <div class="addr">5905 Wilshire Blvd, Los Angeles, CA 90036</div>
+    <div class="desc">Largest art museum in the western US. Don&#39;t miss the &quot;Urban Light&quot; lamppost sculpture.</div>
+    <div class="links">
+      <a href="https://lacma.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Los%20Angeles%20County%20Museum%20of%20Art%20(LACMA)%205905%20Wilshire%20Blvd%2C%20Los%20Angeles%2C%20CA%2090036&amp;query_place_id=ChIJsXqcyjy5woARNz6sOh0ZmwA" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">38.</span> <span class="name">California Science Center</span> <span class="dist">· 25 mi from venue</span></div>
+    <div class="addr">700 Exposition Park Dr, Los Angeles, CA 90037</div>
+    <div class="desc">Hands-on exhibits and the Space Shuttle Endeavour. Free general admission.</div>
+    <div class="links">
+      <a href="https://californiasciencecenter.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=California%20Science%20Center%20700%20Exposition%20Park%20Dr%2C%20Los%20Angeles%2C%20CA%2090037&amp;query_place_id=ChIJ21yHTgjIwoARcrUbrsffOB4" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">39.</span> <span class="name">The Broad</span> <span class="dist">· 25 mi from venue</span></div>
+    <div class="addr">221 S Grand Ave, Los Angeles, CA 90012</div>
+    <div class="desc">Contemporary art museum downtown — Warhol, Basquiat, and Kusama&#39;s Infinity Mirror Rooms. Free admission.</div>
+    <div class="links">
+      <a href="https://thebroad.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=The%20Broad%20221%20S%20Grand%20Ave%2C%20Los%20Angeles%2C%20CA%2090012&amp;query_place_id=ChIJXaYsEk3GwoARvx7RKBUE8Zg" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">40.</span> <span class="name">Petersen Automotive Museum</span> <span class="dist">· 30 mi from venue</span></div>
+    <div class="addr">6060 Wilshire Blvd, Los Angeles, CA 90036</div>
+    <div class="desc">Three floors of historic cars, movie vehicles, and design exhibits. The Vault tour is worth the upgrade.</div>
+    <div class="links">
+      <a href="https://petersen.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Petersen%20Automotive%20Museum%206060%20Wilshire%20Blvd%2C%20Los%20Angeles%2C%20CA%2090036&amp;query_place_id=ChIJaRbaXjy5woARERNJSyktTog" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">41.</span> <span class="name">The Huntington Library</span> <span class="dist">· 28 mi from venue</span></div>
+    <div class="addr">1151 Oxford Rd, San Marino, CA 91108</div>
+    <div class="desc">Library, art collections, and 16 themed botanical gardens spread across 120 acres.</div>
+    <div class="links">
+      <a href="https://huntington.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=The%20Huntington%20Library%201151%20Oxford%20Rd%2C%20San%20Marino%2C%20CA%2091108&amp;query_place_id=ChIJc1xhAk3bwoARBBlfKQzXKLM" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">42.</span> <span class="name">Academy Museum of Motion Pictures</span> <span class="dist">· 30 mi from venue</span></div>
+    <div class="addr">6067 Wilshire Blvd, Los Angeles, CA 90036</div>
+    <div class="desc">The Oscars museum — movie history, costumes, props, and a stunning rooftop dome.</div>
+    <div class="links">
+      <a href="https://academymuseum.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Academy%20Museum%20of%20Motion%20Pictures%206067%20Wilshire%20Blvd%2C%20Los%20Angeles%2C%20CA%2090036&amp;query_place_id=ChIJD7BMrFa5woAR83gz5nQnn5I" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Shopping</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">43.</span> <span class="name">Rodeo Drive</span> <span class="dist">· 32 mi from venue</span></div>
+    <div class="addr">Rodeo Dr, Beverly Hills, CA 90210</div>
+    <div class="desc">Beverly Hills&#39; three-block luxury shopping district. Worth visiting just to walk and people-watch.</div>
+    <div class="links">
+      <a href="https://rodeodrive-bh.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Rodeo%20Drive%20Rodeo%20Dr%2C%20Beverly%20Hills%2C%20CA%2090210&amp;query_place_id=ChIJ7cebZeS7woAR3Gj1anQBiPA" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">44.</span> <span class="name">Westfield Century City</span> <span class="dist">· 33 mi from venue</span></div>
+    <div class="addr">10250 Santa Monica Blvd, Los Angeles, CA 90067</div>
+    <div class="desc">Upscale outdoor mall with Eataly, a flagship Nordstrom, and excellent dining.</div>
+    <div class="links">
+      <a href="https://westfield.com/centurycity" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Westfield%20Century%20City%2010250%20Santa%20Monica%20Blvd%2C%20Los%20Angeles%2C%20CA%2090067&amp;query_place_id=ChIJhcGq9Iy7woARs8VXy7WsEZ0" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">45.</span> <span class="name">The Grove</span> <span class="dist">· 30 mi from venue</span></div>
+    <div class="addr">189 The Grove Dr, Los Angeles, CA 90036</div>
+    <div class="desc">Open-air shopping village with a dancing fountain, trolley, and the adjacent Farmers Market.</div>
+    <div class="links">
+      <a href="https://thegrovela.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=The%20Grove%20189%20The%20Grove%20Dr%2C%20Los%20Angeles%2C%20CA%2090036&amp;query_place_id=ChIJwwPTwi-5woARbtuI_49vkMM" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">46.</span> <span class="name">Melrose Avenue Shopping District</span> <span class="dist">· 31 mi from venue</span></div>
+    <div class="addr">Melrose Ave, West Hollywood, CA 90048</div>
+    <div class="desc">Vintage shops, boutiques, and famous murals — the heart of LA&#39;s fashion-forward scene.</div>
+    <div class="links">
+      <a href="https://melroseavenue-shop.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Melrose%20Avenue%20Shopping%20District%20Melrose%20Ave%2C%20West%20Hollywood%2C%20CA%2090048&amp;query_place_id=ChIJKXllgsm-woARNqk39x25d3o" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">47.</span> <span class="name">Los Angeles Fashion District</span> <span class="dist">· 24 mi from venue</span></div>
+    <div class="addr">Downtown Los Angeles, CA 90014</div>
+    <div class="desc">100-block district of wholesale and discount shopping in downtown LA. The Santee Alley is a must.</div>
+    <div class="links">
+      <a href="https://fashiondistrict.org" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Los%20Angeles%20Fashion%20District%20Downtown%20Los%20Angeles%2C%20CA%2090014&amp;query_place_id=ChIJf_9O_SzGwoARtrkWOBLCwII" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">48.</span> <span class="name">South Coast Plaza</span> <span class="dist">· 5 mi from venue</span></div>
+    <div class="addr">3333 Bristol St, Costa Mesa, CA 92626</div>
+    <div class="desc">Largest shopping mall in California with 250+ stores — world-class luxury shopping.</div>
+    <div class="links">
+      <a href="https://southcoastplaza.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=South%20Coast%20Plaza%203333%20Bristol%20St%2C%20Costa%20Mesa%2C%20CA%2092626&amp;query_place_id=ChIJCyDHJSXf3IAR2DBM02jy2dE" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">49.</span> <span class="name">Fashion Island</span> <span class="dist">· 10 mi from venue</span></div>
+    <div class="addr">401 Newport Center Dr, Newport Beach, CA 92660</div>
+    <div class="desc">Open-air shopping and dining with ocean views and a famous koi pond.</div>
+    <div class="links">
+      <a href="https://fashionisland.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Fashion%20Island%20401%20Newport%20Center%20Dr%2C%20Newport%20Beach%2C%20CA%2092660&amp;query_place_id=ChIJUetYrofg3IARvxarZNginsY" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">50.</span> <span class="name">Irvine Spectrum Center</span> <span class="dist">· 12 mi from venue</span></div>
+    <div class="addr">670 Spectrum Center Dr, Irvine, CA 92618</div>
+    <div class="desc">Outdoor mall with a giant Ferris wheel, dining, movies, and a Hello Kitty Cafe.</div>
+    <div class="links">
+      <a href="https://irvinespectrumcenter.com" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Irvine%20Spectrum%20Center%20670%20Spectrum%20Center%20Dr%2C%20Irvine%2C%20CA%2092618&amp;query_place_id=ChIJR892-fvn3IARQnnqgTu-Phc" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+
+  <h2 class="category">Hiking</h2>
+  <div class="poi">
+    <div class="poi-head"><span class="num">51.</span> <span class="name">Mt Baldy Trailhead</span> <span class="dist">· 38 mi from venue</span></div>
+    <div class="addr">Mt Baldy Rd, Mt Baldy, CA 91759</div>
+    <div class="desc">Trailhead for the 10,064-ft summit of Mt San Antonio. Challenging hike with panoramic views.</div>
+    <div class="links">
+      <a href="https://alltrails.com/us/california/mount-baldy" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Mt%20Baldy%20Trailhead%20Mt%20Baldy%20Rd%2C%20Mt%20Baldy%2C%20CA%2091759&amp;query_place_id=ChIJW1feWLE-w4ARbLl9FmyNZrQ" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+  <div class="poi">
+    <div class="poi-head"><span class="num">52.</span> <span class="name">Vivian Creek Trail to San Gorgonio</span> <span class="dist">· 63 mi from venue</span></div>
+    <div class="addr">41900 Falls Rd, Forest Falls, CA 92339</div>
+    <div class="desc">Steepest path to SoCal&#39;s tallest peak (11,503 ft) — a serious 19-mile round-trip day hike.</div>
+    <div class="links">
+      <a href="https://alltrails.com/trail/us/california/vivian-creek-trail-to-san-gorgonio-peak" target="_blank" rel="noopener noreferrer">Website</a>
+      <span class="sep">·</span>
+      <a href="https://www.google.com/maps/search/?api=1&amp;query=Vivian%20Creek%20Trail%20to%20San%20Gorgonio%2041900%20Falls%20Rd%2C%20Forest%20Falls%2C%20CA%2092339&amp;query_place_id=ChIJBfH8wTFJ24AR2DgNeOfaUGI" target="_blank" rel="noopener noreferrer">Map</a>
+    </div>
+  </div>
+    </main>
+    <footer>RACHEL &amp; GIO &nbsp;·&nbsp; FRIDAY, OCTOBER 23, 2026</footer>
+  </div>
+</body>
+</html>
