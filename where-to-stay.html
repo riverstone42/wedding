@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where to Stay · Rachel &amp; Gio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b2622;
+    --ink-soft:#6f655c;
+    --cream:#f6f1e7;
+    --paper:#fffdf8;
+    --line:#e4dccc;
+    --gold:#b08322;
+    --budget:#3f9d62;
+    --moderate:#3f9d62;
+    --upscale:#3f9d62;
+    --luxury:#3f9d62;
+    --shadow:0 18px 50px -22px rgba(43,38,34,.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #fbf6ec 0%, rgba(251,246,236,0) 60%),
+      var(--cream);
+    color:var(--ink);
+    font-family:"Outfit",system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:34px 20px 60px;}
+
+  header.masthead{text-align:center;margin-bottom:26px;}
+  .eyebrow{
+    font-family:"Outfit";font-weight:500;letter-spacing:.34em;
+    text-transform:uppercase;font-size:11px;color:var(--gold);margin-bottom:14px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";display:inline-block;width:26px;height:1px;
+    background:var(--gold);vertical-align:middle;margin:0 12px;opacity:.6;}
+  h1{
+    font-family:"Fraunces",serif;font-weight:500;font-size:clamp(34px,6vw,58px);
+    line-height:1.02;margin:0 0 10px;letter-spacing:-.01em;
+  }
+  h1 em{font-style:italic;color:var(--gold);}
+  .sub{font-size:15px;color:var(--ink-soft);max-width:600px;margin:0 auto;}
+  .sub b{color:var(--ink);font-weight:500;}
+
+  .legend{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:10px;
+    margin:26px auto 18px;max-width:760px;
+  }
+  .chip{
+    display:flex;align-items:center;gap:9px;background:var(--paper);
+    border:1px solid var(--line);border-radius:40px;padding:8px 15px 8px 11px;
+    font-size:13px;box-shadow:0 2px 6px -3px rgba(43,38,34,.25);
+  }
+  .dot{width:13px;height:13px;border-radius:50%;flex:none;box-shadow:0 0 0 3px rgba(255,255,255,.6) inset;}
+  .chip b{font-weight:600;}
+  .chip span{color:var(--ink-soft);}
+  .dot.b{background:var(--budget);} .dot.m{background:var(--moderate);}
+  .dot.u{background:var(--upscale);} .dot.l{background:var(--luxury);}
+
+  /* legend price-level badge */
+  .key{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:22px;
+    padding:0 8px;border-radius:11px;color:#fff;font-weight:700;font-size:12px;letter-spacing:.02em;
+    flex:none;box-shadow:0 1px 3px rgba(43,38,34,.3);}
+  .key.b{background:var(--budget);} .key.m{background:var(--moderate);}
+  .key.u{background:var(--upscale);} .key.l{background:var(--luxury);}
+  .chip .key{color:#fff;}
+  .legend-cap{text-align:center;font-size:12px;color:var(--ink-soft);margin:-6px auto 20px;max-width:600px;}
+  .legend-cap b{color:var(--ink);font-weight:500;}
+
+  /* map: colored $-level badge dot */
+  .badge-wrap{display:flex;align-items:center;justify-content:center;background:none;border:none;}
+  .dot-badge{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:26px;
+    padding:0 11px;border-radius:14px;color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.03em;
+    white-space:nowrap;border:2.5px solid #fff;box-shadow:0 4px 9px rgba(43,38,34,.38);
+    font-family:"Outfit",sans-serif;}
+
+  .mapcard{
+    background:var(--paper);border:1px solid var(--line);border-radius:18px;
+    padding:10px;box-shadow:var(--shadow);
+  }
+  #map{height:600px;width:100%;border-radius:11px;z-index:1;}
+  @media(max-width:640px){#map{height:520px;}}
+
+  .note{
+    text-align:center;font-size:12.5px;color:var(--ink-soft);
+    margin:18px auto 0;max-width:680px;
+  }
+  .note b{color:var(--ink);font-weight:500;}
+
+  /* Leaflet overrides */
+  .leaflet-container{font-family:"Outfit",sans-serif;background:#eef3f1;}
+  .area-label{
+    background:var(--paper);border:1px solid var(--line);box-shadow:0 3px 8px -3px rgba(43,38,34,.4);
+    border-radius:8px;padding:3px 8px;font-family:"Outfit",sans-serif;white-space:nowrap;cursor:pointer;}
+  .area-label:hover{border-color:var(--gold);}
+  .area-label::before{display:none;}
+  .lbl-n{font-weight:600;font-size:12px;color:var(--ink);}
+  .lbl-s{font-weight:500;font-size:11px;color:var(--gold);margin-left:6px;}
+  .leaflet-popup-content-wrapper{
+    border-radius:14px;box-shadow:0 16px 40px -16px rgba(43,38,34,.55);
+    border:1px solid var(--line);
+  }
+  .leaflet-popup-content{margin:15px 17px;font-family:"Outfit";line-height:1.5;}
+  .pop h3{font-family:"Fraunces",serif;font-weight:600;font-size:19px;margin:0 0 2px;}
+  .pop .tier{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px;}
+  .pop .tier .dot{width:10px;height:10px;}
+  .pop .rate{font-size:21px;font-family:"Fraunces",serif;font-weight:600;margin:0;}
+  .pop .rate small{font-size:12px;color:var(--ink-soft);font-family:"Outfit";font-weight:400;}
+  .pop .range{font-size:12.5px;color:var(--ink-soft);margin:3px 0 0;}
+  .pop .stars{font-size:12.5px;color:var(--ink-soft);margin:6px 0 0;}
+  .pop .stars b{color:var(--ink);font-weight:600;}
+  .pop .meta{font-size:12.5px;color:var(--ink-soft);margin:6px 0 0;}
+  .pop .meta b{color:var(--ink);font-weight:600;}
+  .pop .hotels{font-size:12.5px;margin:8px 0 0;padding-top:8px;border-top:1px dashed var(--line);}
+  .pop .hotels span{color:var(--ink-soft);}
+  .venue-pin{display:flex;align-items:center;justify-content:center;}
+  .venue-pin div{
+    width:30px;height:30px;background:var(--gold);border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);box-shadow:0 6px 14px -4px rgba(176,131,34,.8);
+    border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;
+  }
+  .venue-pin div::after{content:"";width:9px;height:9px;background:#fff;border-radius:50%;transform:rotate(45deg);}
+  .venue-tip{background:var(--gold);color:#fff;border:none;font-weight:600;font-size:12px;
+    box-shadow:0 6px 16px -6px rgba(176,131,34,.9);padding:4px 9px;border-radius:7px;}
+  .venue-tip::before{border-right-color:var(--gold);}
+  .airport-pin{display:flex;align-items:center;justify-content:center;}
+  .airport-pin div{width:30px;height:30px;background:#3f4a59;border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg);box-shadow:0 6px 14px -4px rgba(63,74,89,.7);
+    border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;}
+  .airport-pin div span{transform:rotate(45deg);color:#fff;font-size:15px;line-height:1;}
+  .airport-tip{background:#3f4a59;color:#fff;border:none;font-weight:600;font-size:11.5px;
+    box-shadow:0 6px 16px -6px rgba(63,74,89,.9);padding:4px 9px;border-radius:7px;}
+  .airport-tip::before{border-bottom-color:#3f4a59;}
+  .airport-tip.leaflet-tooltip-top::before{border-top-color:#3f4a59;}
+  .airport-tip.leaflet-tooltip-left::before{border-left-color:#3f4a59;}
+  .airport-tip.leaflet-tooltip-right::before{border-right-color:#3f4a59;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="eyebrow">Guest Accommodations</div>
+    <h1>Where to <em>Stay</em></h1>
+    <p class="sub">Projected nightly hotel rates for our wedding weekend &mdash; <b>Friday, October 23, 2026</b> at <b>The Hacienda, Santa Ana</b> &mdash; for hotels within about <b>30 miles</b> of the venue, color-coded by price level. Tap any area for rates, sample hotels, and drive time.</p>
+  </header>
+
+  <div class="legend">
+    <div class="chip"><span class="key b">$</span><b>Budget</b><span>under $150</span></div>
+    <div class="chip"><span class="key m">$$</span><b>Moderate</b><span>$150&ndash;250</span></div>
+    <div class="chip"><span class="key u">$$$</span><b>Upscale</b><span>$250&ndash;400</span></div>
+    <div class="chip"><span class="key l">$$$$</span><b>Luxury</b><span>$400+</span></div>
+  </div>
+
+  <p class="legend-cap">The badge shows each area's <b>typical</b> nightly rate that weekend; the small &#9733; figure is the usual hotel class. Tap an area for its full price range and example hotels. <b>Gold pin</b> = the venue &middot; <b>&#9992; slate pins</b> = area airports (tap for drive time).</p>
+
+  <div class="mapcard"><div id="map"></div></div>
+
+  <p class="note"><b>About these rates.</b> Figures are projected for the <b>Oct 23&ndash;24, 2026</b> weekend (a Friday) and reflect a comfortable 3&ndash;4&#9733; hotel. That weekend falls during <b>Disneyland's Halloween Time</b> and <b>Knott's Scary Farm</b>, so inland rates near Anaheim and Buena Park run high &mdash; coastal areas ease a bit past summer. Actual prices won't post until closer to the date and shift with demand and day of week, so treat these as planning estimates and <b>book early</b>.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+window.addEventListener('load',function(){
+  if(typeof L==='undefined'){
+    document.getElementById('map').innerHTML='<p style="padding:48px 24px;text-align:center;color:#6f655c;font-family:Outfit,sans-serif">The map library couldn\u2019t load. Please check your connection and refresh, or open this page in a standard browser tab.</p>';
+    return;
+  }
+  var COLORS={budget:'#3f9d62',moderate:'#3f9d62',upscale:'#3f9d62',luxury:'#3f9d62'};
+  var venue={lat:33.7280,lng:-117.8678};
+
+  var areas=[
+    {n:"Santa Ana",lat:33.7454,lng:-117.8472,t:"moderate",typ:"~$175",st:"2–3★",dir:"left",r:"$140–$210",mi:"~2 mi",drive:"5–10 min",
+      h:"Holiday Inn Express OC, Courtyard Santa Ana, DoubleTree Santa Ana",note:"Closest to the venue"},
+    {n:"Orange",lat:33.7880,lng:-117.8905,t:"moderate",typ:"~$195",st:"3★",dir:"right",r:"$160–$230",mi:"~4 mi",drive:"~10 min",
+      h:"Ayres Hotel Orange, Best Western Plus Meridian, The Outlets nearby"},
+    {n:"Irvine",lat:33.6760,lng:-117.8250,t:"moderate",typ:"~$190",st:"3–4★",dir:"top",r:"$160–$240",mi:"~4 mi",drive:"~12 min",
+      h:"Hilton Irvine, Marriott Irvine, Hilton Garden Inn",note:"Business district — weekend rates often ease"},
+    {n:"Costa Mesa",lat:33.6655,lng:-117.9050,t:"moderate",typ:"~$190",st:"3–4★",dir:"left",r:"$150–$240",mi:"~5 mi",drive:"~15 min",
+      h:"Ayres Costa Mesa, Avenue of the Arts, Hilton OC, near South Coast Plaza"},
+    {n:"Garden Grove",lat:33.7744,lng:-117.9380,t:"budget",typ:"~$140",st:"2–3★",dir:"bottom",r:"$110–$175",mi:"~5 mi",drive:"~12 min",
+      h:"Harbor Inn & Suites, area motels",note:"Most affordable cluster"},
+    {n:"Anaheim",lat:33.8085,lng:-117.9180,t:"upscale",typ:"~$285",st:"2–4★",dir:"top",r:"$210–$360",mi:"~6 mi",drive:"15–20 min",
+      h:"Anaheim Marriott, DoubleTree Suites, Cortona Inn",note:"Disneyland Halloween-season peak — book early; Disney resort hotels $500+"},
+    {n:"Newport Beach",lat:33.6200,lng:-117.9100,t:"luxury",typ:"~$420",st:"4–5★",dir:"bottom",r:"$280–$550+",mi:"~8 mi",drive:"~20 min",
+      h:"Balboa Bay Resort, Newport Beach Marriott, Lido House",note:"Coastal & upscale; softer than summer"},
+    {n:"Huntington Beach",lat:33.6600,lng:-118.0000,t:"upscale",typ:"~$310",st:"4★",dir:"bottom",r:"$230–$400",mi:"~9 mi",drive:"~25 min",
+      h:"Paséa Hotel, Waterfront Beach Resort, Kimpton Shorebreak"},
+    {n:"Buena Park",lat:33.8403,lng:-117.9982,t:"moderate",typ:"~$195",st:"2–3★",dir:"left",r:"$150–$230",mi:"~11 mi",drive:"~20 min",
+      h:"Knott's Berry Farm Hotel, Holiday Inn Buena Park",note:"Knott's Scary Farm peak weekend — elevated"},
+    {n:"Long Beach",lat:33.7680,lng:-118.1930,t:"moderate",typ:"~$200",st:"3–4★",dir:"top",r:"$160–$250",mi:"~19 mi",drive:"~30 min",
+      h:"Hyatt Regency, Westin Long Beach, Renaissance"}
+  ];
+
+  var map=L.map('map',{scrollWheelZoom:false,zoomSnap:.25});
+  L.control.scale({imperial:true,metric:false,position:'bottomleft'}).addTo(map);
+  map.on('click',function(){map.scrollWheelZoom.enable();});
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'&copy; OpenStreetMap contributors',maxZoom:19
+  }).addTo(map);
+
+  function tierName(t){return t.charAt(0).toUpperCase()+t.slice(1);}
+  function tierSymbol(t){return {budget:'$',moderate:'$$',upscale:'$$$',luxury:'$$$$'}[t];}
+  var pts=[];
+
+  var labelOff={right:[27,0],left:[-27,0],top:[0,-16],bottom:[0,16]};
+  areas.forEach(function(a){
+    var col=COLORS[a.t], sym=tierSymbol(a.t);
+    var icon=L.divIcon({className:'badge-wrap',
+      html:'<div class="dot-badge" style="background:'+col+'">'+sym+'</div>',
+      iconSize:[58,30],iconAnchor:[29,15]});
+    L.marker([a.lat,a.lng],{icon:icon}).addTo(map)
+    .bindTooltip('<span class="lbl-n">'+a.n+'</span><span class="lbl-s">'+a.st+'</span>',
+      {permanent:true,interactive:true,direction:a.dir,offset:(labelOff[a.dir]||[0,0]),className:'area-label'})
+    .bindPopup(
+      '<div class="pop"><h3>'+a.n+'</h3>'+
+      '<div class="tier"><span class="dot" style="background:'+col+'"></span>'+sym+' &middot; '+tierName(a.t)+'</div>'+
+      '<p class="rate">'+a.typ+' <small>/ night typical</small></p>'+
+      '<p class="range">Rooms generally '+a.r+'</p>'+
+      '<p class="stars">Typical hotel class: <b>'+a.st+'</b></p>'+
+      '<p class="meta"><b>'+a.mi+'</b> &middot; '+a.drive+' to The Hacienda'+(a.note?' &middot; '+a.note:'')+'</p>'+
+      '<p class="hotels"><span>'+a.h+'</span></p></div>',
+      {autoPan:true,autoPanPadding:[28,28],maxWidth:280,keepInView:true}
+    );
+    pts.push([a.lat,a.lng]);
+  });
+
+  // Venue marker
+  var vIcon=L.divIcon({className:'venue-pin',html:'<div></div>',iconSize:[30,30],iconAnchor:[15,28]});
+  L.marker([venue.lat,venue.lng],{icon:vIcon,zIndexOffset:1000}).addTo(map)
+    .bindTooltip('The Hacienda',{permanent:true,direction:'right',offset:[12,-12],className:'venue-tip'});
+  pts.push([venue.lat,venue.lng]);
+
+  // Airports
+  var airports=[
+    {n:"John Wayne (SNA)",lat:33.6762,lng:-117.8675,dir:"bottom",off:[0,2],drive:"~15 min"},
+    {n:"Long Beach (LGB)",lat:33.8177,lng:-118.1517,dir:"top",off:[0,-2],drive:"~30 min"},
+    {n:"LAX",lat:33.9416,lng:-118.4085,dir:"left",off:[-12,-12],drive:"~45 min"},
+    {n:"Hollywood Burbank (BUR)",lat:34.2007,lng:-118.3590,dir:"top",off:[0,-2],drive:"~60 min"},
+    {n:"Ontario (ONT)",lat:34.0560,lng:-117.6012,dir:"right",off:[12,-12],drive:"~45 min"}
+  ];
+  var aIcon=L.divIcon({className:'airport-pin',html:'<div><span>\u2708</span></div>',iconSize:[30,30],iconAnchor:[15,28]});
+  airports.forEach(function(ap){
+    L.marker([ap.lat,ap.lng],{icon:aIcon,zIndexOffset:900}).addTo(map)
+      .bindTooltip(ap.n,{permanent:true,direction:ap.dir,offset:ap.off,className:'airport-tip'})
+      .bindPopup('<div class="pop"><h3>'+ap.n+'</h3>'+
+        '<p class="meta"><b>'+ap.drive+'</b> to The Hacienda</p></div>',
+        {autoPan:true,autoPanPadding:[28,28],maxWidth:240,keepInView:true});
+    pts.push([ap.lat,ap.lng]);
+  });
+
+  map.fitBounds(pts,{paddingTopLeft:[58,46],paddingBottomRight:[58,58]});
+});
+</script>
+</body>
+</html>
