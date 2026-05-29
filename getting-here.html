@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Getting Here &middot; Rachel &amp; Giovani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b2622;
+    --ink-soft:#6f655c;
+    --cream:#f6f1e7;
+    --paper:#fffdf8;
+    --line:#e4dccc;
+    --gold:#b08322;
+    --green:#3f9d62;
+    --walk-bg:#e7f3ea;   --walk-tx:#2f7d4e;
+    --shut-bg:#f6ecd8;   --shut-tx:#8a6418;
+    --bar-mute:#94897a;
+    --shadow:0 18px 50px -22px rgba(43,38,34,.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #fbf6ec 0%, rgba(251,246,236,0) 60%),
+      var(--cream);
+    color:var(--ink);
+    font-family:"Outfit",system-ui,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:34px 20px 64px;}
+
+  /* masthead */
+  header.masthead{text-align:center;margin-bottom:40px;}
+  .eyebrow{
+    font-family:"Outfit";font-weight:500;letter-spacing:.34em;
+    text-transform:uppercase;font-size:11px;color:var(--gold);margin-bottom:14px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";display:inline-block;width:26px;height:1px;
+    background:var(--gold);vertical-align:middle;margin:0 12px;opacity:.6;}
+  h1{
+    font-family:"Fraunces",serif;font-weight:500;font-size:clamp(34px,6vw,58px);
+    line-height:1.02;margin:0 0 12px;letter-spacing:-.01em;
+  }
+  h1 em{font-style:italic;color:var(--gold);}
+  .sub{font-size:15px;color:var(--ink-soft);max-width:600px;margin:0 auto;}
+  .sub b{color:var(--ink);font-weight:500;}
+
+  /* section */
+  section{margin-top:46px;}
+  .kicker{
+    font-family:"Outfit";font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+    font-size:10.5px;color:var(--gold);margin-bottom:8px;
+  }
+  h2{
+    font-family:"Fraunces",serif;font-weight:500;font-size:clamp(23px,4vw,30px);
+    line-height:1.1;margin:0 0 10px;letter-spacing:-.01em;
+  }
+  .lead{font-size:14.5px;color:var(--ink-soft);margin:0 0 20px;max-width:640px;}
+  .lead b{color:var(--ink);font-weight:500;}
+
+  /* card list */
+  .panel{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;box-shadow:var(--shadow);
+  }
+  .row{padding:16px 18px;border-bottom:1px solid var(--line);}
+  .row:last-child{border-bottom:none;}
+  .row .name{font-size:16px;font-weight:500;}
+  .row .name .code{color:var(--ink-soft);font-weight:400;font-size:13px;margin-left:5px;}
+  .loc{color:var(--ink-soft);font-weight:400;font-size:12.5px;}
+
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:30px;white-space:nowrap;}
+  .tag.green{background:var(--walk-bg);color:var(--walk-tx);}
+  .tag.amber{background:var(--shut-bg);color:var(--shut-tx);}
+
+  /* drive rows */
+  .row.drive{display:flex;align-items:center;gap:14px;}
+  .dnum{flex:none;width:16px;text-align:center;font-size:13px;color:var(--ink-soft);}
+  .dicon{flex:none;color:var(--ink-soft);display:flex;align-items:center;}
+  .dmain{flex:1;min-width:0;}
+  .dsum{font-size:13px;color:var(--ink-soft);margin-top:3px;}
+  .drive .fig{flex:none;text-align:right;white-space:nowrap;}
+  .drive .miles{font-size:15px;font-weight:500;}
+  .drive .time{font-size:12px;color:var(--ink-soft);margin-top:1px;}
+  .bar{margin-top:9px;height:6px;background:var(--cream);border:1px solid var(--line);border-radius:4px;overflow:hidden;}
+  .bar span{display:block;height:100%;border-radius:4px;}
+  .score{font-size:18px;font-weight:600;line-height:1;}
+  .den{font-size:12px;color:var(--ink-soft);font-weight:400;}
+
+  /* rental rows */
+  .rent .top{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+  .rent .where{font-size:13px;color:var(--ink-soft);margin-top:3px;}
+
+  /* fares */
+  .fare{display:flex;gap:15px;padding:16px 18px;border-bottom:1px solid var(--line);}
+  .fare:last-child{border-bottom:none;}
+  .rank{
+    flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:"Fraunces",serif;font-weight:600;font-size:15px;background:var(--cream);
+    border:1px solid var(--line);color:var(--ink);margin-top:1px;
+  }
+  .fare.best .rank{background:var(--walk-bg);border-color:#bfe0c9;color:var(--walk-tx);}
+  .fare .body .ftitle{font-size:15px;font-weight:500;}
+  .fare .body .ftitle .code{color:var(--ink-soft);font-weight:400;font-size:13px;margin-left:4px;}
+  .fare .body .ftitle .pill{font-size:10.5px;font-weight:600;padding:2px 9px;border-radius:30px;margin-left:8px;vertical-align:middle;}
+  .fare .body .ftitle .pill.green{background:var(--walk-bg);color:var(--walk-tx);}
+  .fare .body p{margin:5px 0 0;font-size:13.5px;color:var(--ink-soft);}
+
+  .foot{margin-top:34px;text-align:center;font-size:12px;color:var(--ink-soft);line-height:1.6;}
+  .foot b{color:var(--ink);font-weight:500;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Travel &amp; Arrivals</div>
+    <h1>Getting <em>Here</em></h1>
+    <p class="sub">For guests flying in for <b>Rachel &amp; Giovani&rsquo;s wedding</b> at The Hacienda, Santa Ana, on <b>Friday, October 23, 2026</b>. Five Los Angeles&ndash;area airports can get you here &mdash; below is how they compare on flight cost, drive time, overall convenience, and renting a car.</p>
+  </header>
+  <section>
+    <div class="kicker">01 &middot; Flight costs</div>
+    <h2>Airfare Ranking By Airport (Low to High)</h2>
+    <p class="lead">Ranked across the eleven states most of our guests are flying from &mdash; <b>Kansas, Ohio, Michigan, North Carolina, Alabama, Indiana, Colorado, Virginia, Hawaii, Illinois, and Utah</b>. These reflect typical routings, not live fares, so always compare your own dates.</p>
+    <div class="panel">
+      <div class="fare best">
+        <div class="rank">1</div>
+        <div class="body">
+          <div class="ftitle">Los Angeles <span class="code">LAX</span> <span class="loc">&middot; Los Angeles, CA</span><span class="pill green">Lowest fares</span></div>
+          <p>Cheapest from nearly all eleven states. The big hubs &mdash; Chicago (Illinois), Denver (Colorado), Salt Lake City (Utah), Detroit (Michigan), Charlotte (North Carolina), and Honolulu (Hawaii) &mdash; all have nonstops to LAX, while the smaller markets (Kansas, Ohio, Alabama, Indiana, Virginia) connect efficiently through those same hubs. Most carriers, most competition, lowest fares.</p>
+        </div>
+      </div>
+      <div class="fare">
+        <div class="rank">2</div>
+        <div class="body">
+          <div class="ftitle">Ontario <span class="code">ONT</span> <span class="loc">&middot; Ontario, CA</span></div>
+          <p>The cheapest secondary airport, anchored by Southwest. Best value from its Southwest-heavy origins &mdash; Denver, Chicago-Midway, Salt Lake City, and Kansas &mdash; plus a new nonstop from Honolulu starting summer 2026. From the eastern and southern states it&rsquo;s usually a pricier connection.</p>
+        </div>
+      </div>
+      <div class="fare">
+        <div class="rank">3</div>
+        <div class="body">
+          <div class="ftitle">John Wayne <span class="code">SNA</span> <span class="loc">&middot; Santa Ana, CA</span></div>
+          <p>Convenient to the venue but a fare premium, and usually a connection from most of these states. Nonstops do exist from a few hubs &mdash; Denver, Salt Lake City, and Chicago on Southwest, Alaska, or United &mdash; but you&rsquo;ll pay for the convenience.</p>
+        </div>
+      </div>
+      <div class="fare">
+        <div class="rank">4</div>
+        <div class="body">
+          <div class="ftitle">Long Beach <span class="code">LGB</span> <span class="loc">&middot; Long Beach, CA</span></div>
+          <p>A compact, Southwest-focused airport with a small route map. Limited nonstops from this part of the country mean generally awkward routings and higher fares from the Midwest, South, and East.</p>
+        </div>
+      </div>
+      <div class="fare">
+        <div class="rank">5</div>
+        <div class="body">
+          <div class="ftitle">Hollywood Burbank <span class="code">BUR</span> <span class="loc">&middot; Burbank, CA</span></div>
+          <p>The most West-Coast-oriented of the group; it gains a Honolulu nonstop in 2026, but from the Midwest, South, and East it&rsquo;s typically a connection and the priciest of the five.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">02 &middot; Drive times</div>
+    <h2>Drive Distance to Venue Ranking (Near to Far)</h2>
+    <p class="lead">Driving distance and typical-traffic time from each airport to <b>The Hacienda, 1725 College Ave, Santa Ana</b>, listed closest first (Google Maps), with a quick summary of the important facts for each &mdash; rentals, hotel shuttles, and fares. <b>John Wayne</b> is by far the shortest hop; the rest involve a real freeway drive.</p>
+    <div class="panel">
+      <div class="row drive">
+        <div class="dnum">1</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">John Wayne <span class="code">SNA</span> <span class="loc">&middot; Santa Ana, CA</span> <span class="tag green" style="margin-left:6px;">Closest</span></div>
+          <div class="dsum">Closest &amp; easiest; on-site rentals (short walk, no shuttle); free hotel shuttles common; priciest fares</div>
+          <div class="bar"><span style="width:22%;background:var(--green);"></span></div>
+        </div>
+        <div class="fig"><div class="miles">10.1 mi</div><div class="time">14&ndash;28 min</div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">2</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Long Beach <span class="code">LGB</span> <span class="loc">&middot; Long Beach, CA</span></div>
+          <div class="dsum">Small, low-stress airport; on-site rentals in the terminal (no shuttle); rental car or rideshare to the venue</div>
+          <div class="bar"><span style="width:39%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="miles">18.1 mi</div><div class="time">24&ndash;45 min</div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">3</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Ontario <span class="code">ONT</span> <span class="loc">&middot; Ontario, CA</span></div>
+          <div class="dsum">Cheaper secondary airport; rentals need a free shuttle to the rental center; long drive to the venue</div>
+          <div class="bar"><span style="width:76%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="miles">35.3 mi</div><div class="time">50 min &ndash; 1 hr 30 min</div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">4</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Los Angeles <span class="code">LAX</span> <span class="loc">&middot; Los Angeles, CA</span> <span class="tag green" style="margin-left:6px;">Lowest fares</span></div>
+          <div class="dsum">Lowest fares &amp; most flights; rentals via shuttle to an off-airport center; long, busy drive to the venue</div>
+          <div class="bar"><span style="width:81%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="miles">37.5 mi</div><div class="time">45 min &ndash; 1 hr 15 min</div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">5</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Hollywood Burbank <span class="code">BUR</span> <span class="loc">&middot; Burbank, CA</span></div>
+          <div class="dsum">Easy airport; on-site rentals (7-min covered walkway, no shuttle); rental car or rideshare to the venue</div>
+          <div class="bar"><span style="width:100%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="miles">46.4 mi</div><div class="time">1 hr 5 min &ndash; 1 hr 50 min</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">03 &middot; Overall convenience</div>
+    <h2>Overall Convenience Ranking (Most to Least)</h2>
+    <p class="lead">A blended, at-a-glance ease score for once you&rsquo;ve landed &mdash; combining <b>drive ease, how simple the airport is to navigate, and rental / rideshare access</b> (fares aside). Higher is better.</p>
+    <div class="panel">
+      <div class="row drive">
+        <div class="dnum">1</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">John Wayne <span class="code">SNA</span> <span class="loc">&middot; Santa Ana, CA</span> <span class="tag green" style="margin-left:6px;">Most convenient</span></div>
+          <div class="dsum">Closest; small &amp; easy; rentals on site</div>
+          <div class="bar"><span style="width:95%;background:var(--green);"></span></div>
+        </div>
+        <div class="fig"><div class="score">95<span class="den">/100</span></div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">2</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Long Beach <span class="code">LGB</span> <span class="loc">&middot; Long Beach, CA</span></div>
+          <div class="dsum">Small, low-stress airport; quick rentals; moderate drive</div>
+          <div class="bar"><span style="width:80%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="score">80<span class="den">/100</span></div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">3</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Ontario <span class="code">ONT</span> <span class="loc">&middot; Ontario, CA</span></div>
+          <div class="dsum">Easy airport &amp; rentals, but a long freeway drive</div>
+          <div class="bar"><span style="width:62%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="score">62<span class="den">/100</span></div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">4</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Hollywood Burbank <span class="code">BUR</span> <span class="loc">&middot; Burbank, CA</span></div>
+          <div class="dsum">Very easy airport; longest drive, through central LA</div>
+          <div class="bar"><span style="width:52%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="score">52<span class="den">/100</span></div></div>
+      </div>
+      <div class="row drive">
+        <div class="dnum">5</div>
+        <div class="dicon"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10h4a2 2 0 0 1 0 4h-4l-4 7h-3l2 -7h-4l-2 2h-3l2 -4l-2 -4h3l2 2h4l-2 -7h3z"/></svg></div>
+        <div class="dmain">
+          <div class="name">Los Angeles <span class="code">LAX</span> <span class="loc">&middot; Los Angeles, CA</span></div>
+          <div class="dsum">Huge &amp; busy; rental / rideshare shuttle; heavy traffic</div>
+          <div class="bar"><span style="width:38%;background:var(--bar-mute);"></span></div>
+        </div>
+        <div class="fig"><div class="score">38<span class="den">/100</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker">04 &middot; Rental cars</div>
+    <h2>In the Airport, or a Shuttle Ride Away</h2>
+    <p class="lead">At three of the airports you simply <b>walk</b> from baggage claim to your rental car. At the other two, the rental counters sit at a separate center you reach by <b>shuttle</b> &mdash; worth knowing if you&rsquo;re tight on time.</p>
+    <div class="panel">
+      <div class="row rent">
+        <div class="top">
+          <div class="name">John Wayne <span class="code">SNA</span> <span class="loc">&middot; Santa Ana, CA</span></div>
+          <span class="tag green">In airport &middot; walk</span>
+        </div>
+        <div class="where">Counters between Terminals A &amp; B; cars in the adjacent structures.</div>
+      </div>
+      <div class="row rent">
+        <div class="top">
+          <div class="name">Long Beach <span class="code">LGB</span> <span class="loc">&middot; Long Beach, CA</span></div>
+          <span class="tag green">In airport &middot; walk</span>
+        </div>
+        <div class="where">Counters in the Historic Terminal, steps from the concourse exit.</div>
+      </div>
+      <div class="row rent">
+        <div class="top">
+          <div class="name">Hollywood Burbank <span class="code">BUR</span> <span class="loc">&middot; Burbank, CA</span></div>
+          <span class="tag green">In airport &middot; walk</span>
+        </div>
+        <div class="where">At the Regional Intermodal Transportation Center &mdash; a ~7-minute covered moving walkway from the terminal.</div>
+      </div>
+      <div class="row rent">
+        <div class="top">
+          <div class="name">Ontario <span class="code">ONT</span> <span class="loc">&middot; Ontario, CA</span></div>
+          <span class="tag amber">Shuttle to center</span>
+        </div>
+        <div class="where">Separate Rental Car Center; free airport shuttle from the terminals.</div>
+      </div>
+      <div class="row rent">
+        <div class="top">
+          <div class="name">Los Angeles <span class="code">LAX</span> <span class="loc">&middot; Los Angeles, CA</span></div>
+          <span class="tag amber">Shuttle to center</span>
+        </div>
+        <div class="where">Off-airport Consolidated Rent-A-Car Center; shuttle bus from the terminals.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <b>Drive distances, times, and rental-car locations are verified.</b><br>
+    Fare ranking reflects typical routings from our eleven guest states, and convenience scores are a subjective blend &mdash; both are estimates, not live quotes. Book early for the October wedding weekend.
+  </div>
+
+</div>
+</body>
+</html>
