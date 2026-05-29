@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driving in Southern California — A Guest Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #2b2620;
+    --paper: #f7f2e9;
+    --paper-2: #fffdf8;
+    --line: #d8cdb8;
+    --accent: #8a5a2b;
+    --accent-soft: #b07f4a;
+    --warn-bg: #b3261e;
+    --warn-bg-2: #8c1c16;
+    --warn-text: #fff6f3;
+    --warn-ring: #ffd9a0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #efe6d4 0%, transparent 60%),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 96px;
+  }
+
+  /* Header */
+  .eyebrow {
+    font-family: "Fraunces", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+
+  h1 {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 6vw, 3.1rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+  }
+
+  .lede {
+    font-size: 1.18rem;
+    color: #5a5246;
+    margin: 0 0 36px;
+    max-width: 60ch;
+  }
+
+  /* THE UNMISSABLE WARNING */
+  .warning {
+    position: relative;
+    background: linear-gradient(160deg, var(--warn-bg) 0%, var(--warn-bg-2) 100%);
+    color: var(--warn-text);
+    border-radius: 14px;
+    padding: 26px 28px 28px;
+    margin: 0 0 48px;
+    box-shadow:
+      0 0 0 4px var(--paper),
+      0 0 0 6px var(--warn-bg),
+      0 18px 38px -14px rgba(140,28,22,0.6);
+    overflow: hidden;
+  }
+
+  .warning::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.06) 0 14px,
+        rgba(255,255,255,0) 14px 28px
+      );
+    pointer-events: none;
+  }
+
+  .warning-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.82rem;
+    background: var(--warn-ring);
+    color: #6e1310;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .warning-tag svg { width: 16px; height: 16px; }
+
+  .warning h2 {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    font-size: clamp(1.35rem, 4.5vw, 1.7rem);
+    line-height: 1.15;
+    margin: 0 0 12px;
+    position: relative;
+  }
+
+  .warning p {
+    margin: 0 0 12px;
+    position: relative;
+    font-size: 1.06rem;
+  }
+
+  .warning p:last-child { margin-bottom: 0; }
+
+  .warning strong { color: var(--warn-ring); }
+
+  .warn-howto {
+    position: relative;
+    margin-top: 18px;
+    padding: 16px 18px;
+    background: rgba(0,0,0,0.18);
+    border: 1px solid rgba(255,217,160,0.35);
+    border-radius: 10px;
+  }
+  .warn-howto p { margin: 0 0 10px; font-size: 1rem; }
+  .warn-howto p:last-child { margin-bottom: 0; }
+  .warn-howto-label {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    color: var(--warn-ring);
+    letter-spacing: 0.01em;
+  }
+  .warn-howto-note {
+    font-size: 0.9rem !important;
+    color: #ffe6d6;
+    font-style: italic;
+    opacity: 0.92;
+  }
+  .warn-list {
+    margin: 4px 0 0 !important;
+    padding: 0;
+    list-style: none;
+  }
+  .warn-list li {
+    position: relative;
+    padding: 12px 0 12px 0;
+    margin: 0;
+    font-size: 0.98rem;
+    border-top: 1px solid rgba(255,217,160,0.22);
+  }
+  .warn-list li:first-child { border-top: none; padding-top: 6px; }
+  .warn-list li::before { content: none; }
+  .warn-list .fwy {
+    display: block;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    color: var(--warn-ring);
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .warning a {
+    color: var(--warn-ring);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .warning a:hover { color: #fff; }
+  .cite { font-size: 0.85rem; opacity: 0.9; white-space: nowrap; }
+
+  /* Sections */
+  section { margin-bottom: 44px; }
+
+  h2.section {
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 1.55rem;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .rule {
+    width: 52px;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 0 0 20px;
+  }
+
+  p { margin: 0 0 16px; }
+
+  ul, ol { margin: 0 0 16px; padding-left: 0; list-style: none; }
+
+  ul li, ol li {
+    position: relative;
+    padding-left: 34px;
+    margin-bottom: 14px;
+  }
+
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 0.62em;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-soft);
+    border-radius: 50%;
+  }
+
+  ol { counter-reset: step; }
+  ol li {
+    counter-increment: step;
+    padding-left: 44px;
+  }
+  ol li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    background: var(--accent);
+    color: var(--paper-2);
+    border-radius: 50%;
+    font-family: "Fraunces", serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+
+  .callout {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 0 0 16px;
+  }
+  .callout p { margin: 0; }
+  .callout .label {
+    font-family: "Fraunces", serif;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 0.92rem;
+    color: #7a7165;
+    font-style: italic;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 36px 18px 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Getting Around · Guest Guide</p>
+  <h1>Carpool Lanes vs. Express Lanes</h1>
+  <p class="lede">Southern California freeways can be confusing because carpool (HOV) lanes and toll express lanes sometimes look very similar and may even share the same lane corridor.</p>
+
+  <!-- UNMISSABLE WARNING -->
+  <div class="warning" role="alert">
+    <span class="warning-tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      Please Read · Do Not Skip
+    </span>
+    <h2>It is very easy to drift onto a toll road by accident — please use caution.</h2>
+    <p>Toll entrances can appear suddenly, and signage often gives you only a few seconds to react. If you are not paying close attention, you may end up on an Express Lane or toll road before you realize it.</p>
+    <p><strong>If you do accidentally enter a toll road or Express Lane, you are still responsible for payment.</strong> An honest mistake does not waive the toll, and unpaid tolls can turn into violation notices and added fees.</p>
+    <div class="warn-howto">
+      <p class="warn-howto-label">How to pay for accidental toll travel — the procedure differs by freeway:</p>
+      <ul class="warn-list">
+        <li>
+          <span class="fwy">I-10 &amp; I-110 (LA Metro Express Lanes)</span>
+          Wait for a <strong>"Notice of Toll Evasion"</strong> to arrive in the mail. The agency photographs your license plate and mails a bill to the vehicle's registered owner covering the posted toll plus a processing fee (currently <strong>$9</strong>), due within 30 days to avoid added penalties. <span class="cite">[<a href="https://www.reddit.com/r/LosAngeles/comments/18pptye/what_should_i_do_i_accidentally_went_on_405/" target="_blank" rel="noopener">1</a>, <a href="https://www.reddit.com/r/LosAngeles/comments/11qfu98/accidently_got_on_110_toll_lanes_now_dont_know/" target="_blank" rel="noopener">2</a>]</span>
+        </li>
+        <li>
+          <span class="fwy">SR-73, 133, 241, 261 (The Toll Roads — Orange County)</span>
+          Do not wait for a notice. Pay online promptly after your trip (typically within 5 days) using the "One-Time Toll" option at thetollroads.com, or set up an account, to avoid penalties.
+        </li>
+        <li>
+          <span class="fwy">SR-91 Express Lanes (Riverside/Orange County)</span>
+          A transponder is required to use these lanes. If you entered without one, contact the 91 Express Lanes customer service promptly to arrange payment rather than waiting for a violation notice.
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <section>
+    <p>Here is how the two lane types differ:</p>
+    <ul>
+      <li><strong>Carpool (HOV) lanes</strong> are generally free for vehicles meeting the posted occupancy requirements (typically 2 or more people, but requirements vary by freeway).</li>
+      <li><strong>Express Lanes</strong> are toll lanes that charge a fee based on traffic conditions.</li>
+      <li>On some freeways, carpools may travel free or at a reduced toll in the Express Lanes, but the rules vary by location.</li>
+      <li>If you enter an Express Lane without the proper toll account or transponder, you may receive a toll charge or violation notice.</li>
+    </ul>
+
+    <div class="callout">
+      <p><span class="label">Important:</span> Before using a lane marked "Express Lanes," check the signs carefully. If you are unfamiliar with Southern California tolling systems, the easiest option is to use your navigation app's "Avoid Tolls" setting.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section">Navigation Apps</h2>
+    <div class="rule"></div>
+    <p>Google Maps, Apple Maps, and Waze generally identify toll roads and Express Lanes. If you prefer not to deal with tolls, enable "Avoid Tolls" before starting your trip.</p>
+  </section>
+
+  <section>
+    <h2 class="section">Wedding Guest Recommendation</h2>
+    <div class="rule"></div>
+    <p>For most wedding guests visiting Southern California for a few days, we recommend either:</p>
+    <ol>
+      <li>Using a rental car and selecting the rental company's toll program if you expect to drive extensively, or</li>
+      <li>Turning on "Avoid Tolls" in your navigation app and using the regular freeway lanes.</li>
+    </ol>
+    <p>This avoids most toll-related issues while still allowing convenient travel throughout the Los Angeles and Orange County areas.</p>
+  </section>
+
+  <footer>
+    Safe travels — and we can't wait to see you here.
+  </footer>
+
+</div>
+</body>
+</html>
